@@ -1,0 +1,51 @@
+{
+    "bb929b86-66ee-41e1-94b5-66e5cc03ed11": {
+      "title": "Satisfactory",
+      "category": "Automation",
+      "maxLevel": "7",
+      "imageUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/526870/capsule_616x353.jpg",
+      "summary": "Satisfactory is a first-person open-world factory building game with a dash of exploration and combat.",
+      "_id": "bb929b86-66ee-41e1-94b5-66e5cc03ed11"
+    },
+    "31aec88d-0591-4014-9149-f492b50479f2": {
+      "title": "Eve Online",
+      "category": "Space Simulator",
+      "maxLevel": "11",
+      "imageUrl": "https://i.ytimg.com/vi/vAbY68o_8ew/maxresdefault.jpg",
+      "summary": "EVE Online is a free-to-play community driven space MMO where players can choose their own path from countless different options.",
+      "_id": "31aec88d-0591-4014-9149-f492b50479f2"
+    },
+    "93ae1a2b-40b2-4019-b9b1-a6735392e673": {
+      "title": "The Witcher 3: Wild Hunt",
+      "category": "RPG",
+      "maxLevel": "100",
+      "imageUrl": "https://cdn-l-thewitcher.cdprojektred.com/meta/TW3NG_thumbnail_en.png",
+      "summary": "The Witcher 3 is an open-world RPG set in a dark fantasy universe where you play as Geralt of Rivia, a monster hunter.",
+      "_id": "93ae1a2b-40b2-4019-b9b1-a6735392e673"
+    },
+    "48cd1b8e-7a7f-437a-89be-e06360d5b623": {
+      "title": "Factorio",
+      "category": "Automation",
+      "maxLevel": "N/A",
+      "imageUrl": "https://untitledcritic.com/wp-content/uploads/2024/10/fff-418-space-age-cover.png",
+      "summary": "Factorio is a game about building and managing factories in an endless 2D world with resource management and automation.",
+      "_id": "48cd1b8e-7a7f-437a-89be-e06360d5b623"
+    },
+    "b9dcae17-5c9f-4f18-a5db-3762f2b3dd33": {
+      "title": "Stardew Valley",
+      "category": "Simulation",
+      "maxLevel": "N/A",
+      "imageUrl": "https://assets-prd.ignimgs.com/2021/12/20/stardewvalley-1640044262769.jpg?width=300&crop=1%3A1%2Csmart&auto=webp",
+      "summary": "Stardew Valley is a farming simulation game where you can grow crops, raise animals, and explore dungeons.",
+      "_id": "b9dcae17-5c9f-4f18-a5db-3762f2b3dd33"
+    },
+    "f1a1e1c6-7b5b-4c4d-bcfa-5d2b9efaa3e1": {
+      "title": "Cyberpunk 2077",
+      "category": "Action RPG",
+      "maxLevel": "50",
+      "imageUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1091500/capsule_616x353.jpg?t=1730212296",
+      "summary": "Cyberpunk 2077 is an open-world action RPG set in Night City, a metropolis obsessed with power, glamour, and body modification.",
+      "_id": "f1a1e1c6-7b5b-4c4d-bcfa-5d2b9efaa3e1"
+    }
+  }
+  
