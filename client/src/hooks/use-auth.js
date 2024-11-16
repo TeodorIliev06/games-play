@@ -8,7 +8,7 @@ export const useLogin = () => {
 
     const loginHandler = async (email, password) => {
         //! Do not keep password in state
-        const {password, ...authData} = await login(email, password);
+        const { password:_, ...authData } = await login(email, password);
 
         changeAuthState(authData);
 
@@ -23,7 +23,7 @@ export const useRegister = () => {
 
     const registerHandler = async (email, password) => {
         //! Do not keep password in state
-        const {password, ...authData} = await register(email, password);
+        const { password:_, ...authData } = await register(email, password);
 
         changeAuthState(authData);
 
