@@ -33,3 +33,11 @@ export function useGetOneGames(gameId) {
         setGame,
     ];
 }
+
+//? Create hook just to follow the architecture
+export function useCreateGame() {
+    const gameCreateHandler = (gameData) => gamesAPI.create(gameData);
+
+
+    return gameCreateHandler;
+}

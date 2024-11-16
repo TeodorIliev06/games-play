@@ -1,7 +1,40 @@
+import { useNavigate } from "react-router-dom";
+
+import { useForm } from "../../hooks/use-form";
+import { useCreateGame } from "../../hooks/use-games";
+
+const initialValues = {
+    title: '',
+    category: '',
+    maxLevel: '',
+    imageUrl: '',
+    summary: '',
+}
+
 export default function GameCreate() {
+    const createGame = useCreateGame();
+    const navigate = useNavigate();
+
+    const createHandler = async (values) => {
+        try {
+            const { _id: gameId } = await createGame(values);
+
+            navigate(`/games/${gameId}/details`);
+        } catch (error) {
+            //TODO: Set error state and display error
+            console.log(error.message);
+        }
+
+    };
+
+    const { values, changeHandler, submitHandler } = useForm(
+        initialValues,
+        createHandler
+    );
+
     return (
         <section id="create-page" className="auth">
-            <form id="create">
+            <form id="create" onSubmit={submitHandler}>
                 <div className="container">
                     <h1>Create Game</h1>
                     <label htmlFor="leg-title">Legendary title:</label>
@@ -9,6 +42,8 @@ export default function GameCreate() {
                         type="text"
                         id="title"
                         name="title"
+                        value={values.title}
+                        onChange={changeHandler}
                         placeholder="Enter game title..."
                     />
                     <label htmlFor="category">Category:</label>
@@ -16,6 +51,8 @@ export default function GameCreate() {
                         type="text"
                         id="category"
                         name="category"
+                        value={values.category}
+                        onChange={changeHandler}
                         placeholder="Enter game category..."
                     />
                     <label htmlFor="levels">MaxLevel:</label>
@@ -23,6 +60,8 @@ export default function GameCreate() {
                         type="number"
                         id="maxLevel"
                         name="maxLevel"
+                        value={values.maxLevel}
+                        onChange={changeHandler}
                         min={1}
                         placeholder={1}
                     />
@@ -31,10 +70,17 @@ export default function GameCreate() {
                         type="text"
                         id="imageUrl"
                         name="imageUrl"
+                        value={values.imageUrl}
+                        onChange={changeHandler}
                         placeholder="Upload a photo..."
                     />
                     <label htmlFor="summary">Summary:</label>
-                    <textarea name="summary" id="summary" defaultValue={""} />
+                    <textarea
+                        name="summary"
+                        id="summary"
+                        value={values.summary}
+                        onChange={changeHandler}
+                    />
                     <input
                         className="btn submit"
                         type="submit"
