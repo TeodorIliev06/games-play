@@ -1,7 +1,40 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRegister } from "../../hooks/use-auth";
+import { useForm } from "../../hooks/use-form";
+
+const initialValues = { email: '', password: '', rePassword: '' };
+
+
 export default function Register() {
+    const [error, setError] = useState('');
+    const register = useRegister();
+    const navigate = useNavigate();
+
+    const registerHandler = async ({ email, password, rePassword }) => {
+        //TODO: Good to use react hook form library
+        if (password !== rePassword) {
+            return setError('Password missmatch!');
+        }
+
+        try {
+            await register(email, password);
+
+            navigate('/');
+        } catch (error) {
+            setError(error.message);
+            //* Use alert if preffered
+        }
+    };
+
+    const { values, changeHandler, submitHandler } = useForm(
+        initialValues,
+        registerHandler
+    );
+
     return (
         <section id="register-page" className="content auth">
-            <form id="register">
+            <form id="register" onSubmit={submitHandler}>
                 <div className="container">
                     <div className="brand-logo" />
                     <h1>Register</h1>
@@ -10,13 +43,40 @@ export default function Register() {
                         type="email"
                         id="email"
                         name="email"
+                        value={values.email}
+                        onChange={changeHandler}
                         placeholder="maria@email.com"
                     />
                     <label htmlFor="pass">Password:</label>
-                    <input type="password" name="password" id="register-password" />
+                    <input
+                        type="password"
+                        name="password"
+                        value={values.password}
+                        onChange={changeHandler}
+                        id="register-password"
+                    />
                     <label htmlFor="con-pass">Confirm Password:</label>
-                    <input type="password" name="confirm-password" id="confirm-password" />
+                    <input
+                        type="password"
+                        name="rePassword"
+                        id="rePassword"
+                        value={values.rePassword}
+                        onChange={changeHandler}
+                    />
+
+                    {error && (
+                        <p>
+                            <span
+                                style={{
+                                    fontSize: '18px',
+                                    color: '#ff0000',
+                                }}
+                            >{error}</span>
+                        </p>
+                    )}
+
                     <input className="btn submit" type="submit" defaultValue="Register" />
+
                     <p className="field">
                         <span>
                             If you already have profile click <a href="#">here</a>

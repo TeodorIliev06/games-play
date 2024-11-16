@@ -13,11 +13,13 @@ async function requester(method, url, data) {
         options.body = JSON.stringify(data);
     }
 
+
     const response = await fetch(url, options)
-
-    //TODO: check for response type
-
     const result = await response.json();
+
+    if (!response.ok) {
+        throw result;
+    }
 
     return result;
 };

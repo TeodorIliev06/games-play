@@ -11,13 +11,16 @@ import GameDetails from './components/game-details/GameDetails'
 import { AuthContext } from './contexts/AuthContext'
 
 function App() {
+	//TODO: delegate auth from app to other component
 	const [authState, setAuthState] = useState({});
 
 	const changeAuthState = (state) => {
+		//TODO: validate
 		setAuthState(state);
 	};
 
 	const contextData = {
+		userId: authState._id,
 		email: authState.email,
 		accsesToken: authState.accsesToken,
 		isAuthenticated: !!authState.email,
