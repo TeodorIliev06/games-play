@@ -1,22 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import gamesAPI from "../../api/games-api";
 import commentsAPI from "../../api/comments-api";
+import { useGetOneGames } from "../../hooks/use-games";
 
 export default function GameDetails() {
-    const [game, setGame] = useState({});
+    const { gameId } = useParams();
+    const [game, setGame] = useGetOneGames(gameId);
     const [username, setUsername] = useState('');
     const [comment, setComment] = useState('');
-    const { gameId } = useParams();
-
-    useEffect(() => {
-        (async () => {
-            const result = await gamesAPI.getOne(gameId);
-
-            setGame(result);
-        })();
-    }, []);
 
     const commentSubmitHandler = async (e) => {
         e.preventDefault();
@@ -46,7 +38,7 @@ export default function GameDetails() {
                     <span className="levels">MaxLevel: {game.maxLevel}</span>
                     <p className="type">{game.category}</p>
                 </div>
-                <p className="text">{game.description}</p>
+                <p className="text">{game.summary}</p>
                 {/* Bonus ( for Guests and Users ) */}
                 <div className="details-comments">
                     <h2>Comments:</h2>
