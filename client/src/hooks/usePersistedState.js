@@ -3,11 +3,13 @@ import { useState } from "react";
 export default function usePersistedState(key, initialState) {
 	const [state, setState] = useState(() => {
 		const persistedAuth = localStorage.getItem(key);
+
 		if (!persistedAuth) {
 			return typeof initialState === "function"
 				? initialState()
 				: initialState;
 		}
+
 		const authData = JSON.parse(persistedAuth);
 		return authData;
 	});
@@ -19,9 +21,7 @@ export default function usePersistedState(key, initialState) {
 
 		if (newState === null || newState === undefined) {
 			localStorage.removeItem(key);
-
 		} else {
-
 			localStorage.setItem(key, JSON.stringify(newState));
 		}
 
