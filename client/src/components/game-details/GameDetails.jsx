@@ -18,9 +18,11 @@ export default function GameDetails() {
 	const { isAuthenticated, email: authEmail, userId } = useAuthContext();
 
 	const [game, setGame] = useGetOneGames(gameId);
-	const ownerId = game._ownerId;
 
-	const [comments, setComments] = useGetAllComments(gameId);
+	const ownerId = game._ownerId;
+	const isOwner = ownerId === userId;
+
+	const [comments, dispatch] = useGetAllComments(gameId);
 
 	const { values, changeHandler, submitHandler } = useForm(
 		initialValues,
@@ -28,9 +30,11 @@ export default function GameDetails() {
 			try {
 				const newComment = await createComment(gameId, comment);
 
-				setComments(oldComments => [...oldComments, newComment]);
+				// setComments(oldComments => [...oldComments, newComment]);
+				dispatch({ type: 'ADD_COMMENT', payload: newComment });
 			}
 			catch (err) {
+				//TODO: Improve error handling
 				console.log(err.message);
 			}
 		}
@@ -69,18 +73,20 @@ export default function GameDetails() {
 						))
 						}
 					</ul>
-					
+
 					{comments.length === 0 && <p className="no-comment">No comments.</p>}
 				</div>
 
-				{userId === ownerId && (<div className="buttons">
-					<Link to={`/games/${gameId}/edit`} className="button">
-						Edit
-					</Link>
-					<a href="#" onClick={gameDeleteHandler} className="button">
-						Delete
-					</a>
-				</div>)}
+				{isOwner && (
+					<div className="buttons">
+						<Link to={`/games/${gameId}/edit`} className="button">
+							Edit
+						</Link>
+						<a href="#" onClick={gameDeleteHandler} className="button">
+							Delete
+						</a>
+					</div>
+				)}
 			</div>
 
 			{isAuthenticated && (

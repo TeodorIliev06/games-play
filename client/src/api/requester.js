@@ -2,9 +2,11 @@ import { getAccessToken } from "../utils/authUtils";
 
 export async function requester(method, url, data) {
 	const options = {};
+
 	if (method !== "GET") {
 		options.method = method;
 	}
+
 	const accessToken = getAccessToken();
 
 	if (accessToken) {
@@ -33,6 +35,7 @@ export async function requester(method, url, data) {
 	if (!response.ok) {
 		throw result;
 	}
+
 	return result;
 }
 export const get = requester.bind(null, "GET");

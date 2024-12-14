@@ -5,7 +5,7 @@ export function useForm(initialValues, submitCallback) {
 	// might remove this
 	useEffect(() => {
 		setValues(initialValues)
-	}, [initialValues])
+	}, [initialValues]);
 
 	// TO DO - add support for check boxes
 	const changeHandler = (e) => {
@@ -14,12 +14,13 @@ export function useForm(initialValues, submitCallback) {
 			[e.target.name]: e.target.value,
 		}));
 	};
+
 	const submitHandler = async (e) => {
 		e.preventDefault();
-		// if u have problem change places of submitcallback and setValues
+		
 		await submitCallback(values);
-		setValues(initialValues)
 
+		setValues(initialValues);
 	};
 	return {
 		values,
