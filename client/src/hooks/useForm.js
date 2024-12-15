@@ -3,11 +3,12 @@ export function useForm(initialValues, submitCallback) {
 	const [values, setValues] = useState(initialValues);
 
 	// might remove this
+	// Reinitialise from values
 	useEffect(() => {
 		setValues(initialValues)
 	}, [initialValues]);
 
-	// TO DO - add support for check boxes
+	// TODO: add support for check boxes
 	const changeHandler = (e) => {
 		setValues((state) => ({
 			...state,

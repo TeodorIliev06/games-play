@@ -11,15 +11,10 @@ export function useGetAllGames() {
 	}, []);
 
 	return [games, setGames];
-}
+};
+
 export function useGetOneGames(gameId) {
-	const [game, setGame] = useState({
-		title: '',
-		category: '',
-		maxLevel: '',
-		imageUrl: '',
-		summary: ''
-	});
+	const [game, setGame] = useState({});
 
 	useEffect(() => {
 		(async () => {
@@ -33,10 +28,11 @@ export function useGetOneGames(gameId) {
 		game,
 		setGame,
 	];
-}
+};
+
 export function useCreateGame() {
 	const gameCreateHandler = async (gameData) => await gamesAPI.create(gameData)
 	// if there are problems remove return await gamesApi but that way gamesApi create doesnt return the game but it creates it
 
 	return gameCreateHandler;
-}
+};
