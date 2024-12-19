@@ -1,8 +1,32 @@
 import { useEffect, useState } from "react";
+
+import { useFormValidationContext } from "../contexts/FormValidationContext";
+
 export function useForm(initialValues, submitCallback) {
 	const [values, setValues] = useState(initialValues);
+	const [errors, setErrors] = useState({});
 
-	// might remove this
+	const validationRules = useFormValidationContext();
+
+	const validate = () => {
+		const newErrors = {};
+		for (const key in validationRules) {
+			const rules = validationRules[key];
+			const value = values[key] || '';
+
+			if (rules.required && !value) {
+				newErrors[key] = `${key} is required`;
+			} else if (rules.minLength && value.length < rules.minLength) {
+				newErrors[key] = `${key} must be at least ${rules.minLength} characters`;
+			} else if (rules.maxLength && value.length > rules.maxLength) {
+				newErrors[key] = `${key} must not exceed ${rules.maxLength} characters`;
+			} else if (rules.pattern && !rules.pattern.test(value)) {
+				newErrors[key] = `${key} is invalid`;
+			}
+		}
+		return newErrors;
+	};
+
 	// Reinitialise from values
 	useEffect(() => {
 		setValues(initialValues)
@@ -14,64 +38,31 @@ export function useForm(initialValues, submitCallback) {
 			...state,
 			[e.target.name]: e.target.value,
 		}));
-	};
 
+		setErrors((state) => ({
+			...state,
+			[e.target.name]: '',
+		}));
+	};
+	
 	const submitHandler = async (e) => {
 		e.preventDefault();
-		
-		await submitCallback(values);
 
+		const newErrors = validate();
+		setErrors(newErrors);
+
+		if (Object.keys(newErrors).length > 0) {
+			return;
+		}
+
+		await submitCallback(values);
 		setValues(initialValues);
 	};
+
 	return {
 		values,
 		changeHandler,
 		submitHandler,
+		errors,
 	};
 }
-// //with FORM VALIDATION 100% workin
-// export function useForm(initialValues, submitCallback) {
-//   const [values, setValues] = useState(initialValues);
-//   const [errors, setErrors] = useState({});
-
-//   const validate = () => {
-//     const newErrors = {};
-//     for (const key in values) {
-//       if (!values[key]) {
-//         newErrors[key] = `${key} is required`;
-//       }
-//     }
-//     return newErrors;
-//   };
-
-//   const changeHandler = (e) => {
-//     setValues((state) => ({
-//       ...state,
-//       [e.target.name]: e.target.value,
-//     }));
-
-//     // Clear the error for this field if it was set
-//     setErrors((state) => ({
-//       ...state,
-//       [e.target.name]: '',
-//     }));
-//   };
-
-//   const submitHandler = (e) => {
-//     e.preventDefault();
-//     const newErrors = validate();
-//     if (Object.keys(newErrors).length === 0) {
-//       submitCallback(values);
-//       setValues(initialValues);  // Reset form values after successful submission
-//     } else {
-//       setErrors(newErrors);
-//     }
-//   };
-
-//   return {
-//     values,
-//     changeHandler,
-//     submitHandler,
-//     errors,
-//   };
-// }

@@ -23,7 +23,7 @@ export default function GameEdit() {
         changeHandler,
         submitHandler,
         values
-    } = useForm(initialFormValues, async (values) => { // might want to { ...initialValues, ...game }
+    } = useForm(initialFormValues, async (values) => {
         await gamesAPI.update(gameId, values);
 
         navigate(`/games/${gameId}/details`);
