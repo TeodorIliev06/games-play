@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRegister } from "../../hooks/useAuth";
 import { useState } from "react";
 import { useForm } from "../../hooks/useForm";
@@ -77,7 +77,9 @@ export default function Register() {
 
           <p className="field">
             <span>
-              If you already have profile click <a href="#">here</a>
+              If you already have profile click <Link to={`/login`}>
+								here
+							</Link>
             </span>
           </p>
         </div>

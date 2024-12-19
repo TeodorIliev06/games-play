@@ -27,5 +27,6 @@ export default function usePersistedState(key, initialState) {
 
 		setState(newState);
 	};
+	
 	return [state, updateState];
 }
