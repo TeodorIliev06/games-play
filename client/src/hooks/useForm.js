@@ -34,16 +34,18 @@ export function useForm(initialValues, submitCallback) {
 
 	// TODO: add support for check boxes
 	const changeHandler = (e) => {
+		console.log("Target value:", e.target.value);
 		setValues((state) => ({
 			...state,
 			[e.target.name]: e.target.value,
 		}));
-
+	
 		setErrors((state) => ({
 			...state,
 			[e.target.name]: '',
 		}));
 	};
+	
 	
 	const submitHandler = async (e) => {
 		e.preventDefault();
